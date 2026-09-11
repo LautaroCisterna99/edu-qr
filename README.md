@@ -1,6 +1,6 @@
 # EDU QR — Esqueleto técnico (Etapa 1)
 
-Guía digital de escuelas secundarias técnicas de Caleta Olivia, desarrollada por estudiantes de 4.º año. Este repositorio es el punto de partida para que los equipos de programación (2, 3, 4, 5 y 6) extiendan el proyecto en lugar de partir de cero. El Equipo 1 no necesita este código para relevar escuelas: usa `docs/equipo1_relevamiento/planilla_relevamiento.md`.
+Guía digital de escuelas secundarias técnicas de Caleta Olivia, desarrollada por y para estudiantes de 4.º año. Este repositorio es el punto de partida para que los equipos de programación (2, 3, 4, 5 y 6) extiendan el proyecto en lugar de comenzar de cero. El Equipo 1 no necesita este código para relevar escuelas: usa `docs/equipo1_relevamiento/planilla_relevamiento.md`.
 
 ## Qué hace ya (v0.3 de la metodología incremental)
 
@@ -9,8 +9,6 @@ Guía digital de escuelas secundarias técnicas de Caleta Olivia, desarrollada p
 - Ficha individual de cada escuela con mapa embebido, contacto, inscripción y (si existen) actividades y preguntas frecuentes.
 - Base de datos MySQL relacional con datos de prueba, para no depender de que el relevamiento ya haya terminado.
 - Generador de código QR apuntando a la plataforma.
-
-Lo que falta (etapas siguientes) queda documentado en `EDU QR - 00 - Documento Maestro.md`, en la sección "Etapas de desarrollo".
 
 ## Qué carpeta le corresponde a cada equipo
 
@@ -43,6 +41,7 @@ Verificar abriendo una terminal nueva y corriendo:
 
 ```
 python --version
+
 ```
 
 > **Por qué no la versión más nueva de Python:** algunas librerías (como Pillow, que usa el generador de QR) tardan un tiempo en publicar instaladores listos para cada versión nueva de Python. Si usás una versión recién salida (por ejemplo 3.13 o 3.14), `pip install` puede intentar compilar la librería desde cero y fallar con un error que menciona "Microsoft Visual C++", "zlib" o "Failed building wheel for Pillow". El `requirements.txt` de este proyecto ya está armado sin versiones fijas para minimizar esto, pero si el error aparece igual, la solución más simple es instalar Python 3.11 o 3.12 en paralelo y usar esa versión para este proyecto (se puede tener más de una versión de Python instalada a la vez).

@@ -1,0 +1,186 @@
+/* EDU QR — estilos base (Equipo 4)
+   Mobile-first: la mayoría de las visitas llegan desde el celular
+   escaneando el QR, así que el diseño arranca pensado para pantalla
+   chica y se expande en los media queries de abajo. */
+
+:root {
+    --color-principal: #1d4e89;
+    --color-principal-oscuro: #14375e;
+    --color-fondo: #f7f9fb;
+    --color-texto: #222;
+    --color-borde: #dbe2ea;
+    --radio: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+.cabecera {
+    background: var(--color-principal);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.marca {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.lema {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.contenido {
+    padding: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pie {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #667;
+}
+
+/* Buscador */
+.formulario-busqueda {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.formulario-busqueda input,
+.formulario-busqueda select,
+.formulario-busqueda button {
+    padding: 0.6rem;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    font-size: 1rem;
+}
+
+.formulario-busqueda button {
+    background: var(--color-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.formulario-busqueda button:hover {
+    background: var(--color-principal-oscuro);
+}
+
+/* Lista de escuelas */
+.lista-escuelas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.tarjeta-escuela {
+    display: block;
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--color-texto);
+}
+
+.tarjeta-escuela h2 {
+    margin: 0 0 0.25rem;
+    color: var(--color-principal);
+    font-size: 1.1rem;
+}
+
+.etiqueta-gestion {
+    display: inline-block;
+    background: var(--color-borde);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.75rem;
+    margin: 0.25rem 0;
+}
+
+.sin-resultados {
+    text-align: center;
+    color: #667;
+}
+
+/* Ficha individual */
+.volver {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--color-principal);
+    text-decoration: none;
+}
+
+.ficha-seccion {
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ficha-seccion h2 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: var(--color-principal);
+}
+
+.mapa-embebido {
+    width: 100%;
+    height: 250px;
+    border: 0;
+    border-radius: var(--radio);
+}
+
+.faq-item {
+    margin-bottom: 0.75rem;
+}
+
+.faq-pregunta {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+.faq-respuesta {
+    margin-top: 0;
+    color: #445;
+}
+
+/* A partir de tablet/desktop, buscador en fila y tarjetas en grilla */
+@media (min-width: 700px) {
+    .formulario-busqueda {
+        flex-direction: row;
+    }
+
+    .formulario-busqueda input {
+        flex: 2;
+    }
+
+    .formulario-busqueda select {
+        flex: 1;
+    }
+
+    .lista-escuelas {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}

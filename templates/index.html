@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+<form class="formulario-busqueda" method="get" action="{{ url_for('index') }}">
+    <input
+        type="text"
+        name="q"
+        placeholder="Buscar por nombre de escuela..."
+        value="{{ texto_busqueda }}"
+    >
+
+    <select name="orientacion">
+        <option value="">Todas las orientaciones</option>
+        {% for orientacion in orientaciones %}
+        <option value="{{ orientacion }}" {% if orientacion == orientacion_filtro %}selected{% endif %}>
+            {{ orientacion }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <select name="turno">
+        <option value="">Todos los turnos</option>
+        {% for turno in turnos %}
+        <option value="{{ turno }}" {% if turno == turno_filtro %}selected{% endif %}>
+            {{ turno }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Buscar</button>
+</form>
+
+<section class="lista-escuelas">
+    {% if escuelas %}
+        {% for escuela in escuelas %}
+        <a class="tarjeta-escuela" href="{{ url_for('ficha_escuela', escuela_id=escuela.id) }}">
+            <h2>{{ escuela.nombre }}</h2>
+            <p class="etiqueta-gestion">{{ 'Pública' if escuela.tipo_gestion == 'publica' else 'Privada' }}</p>
+            <p>{{ escuela.direccion }}</p>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p class="sin-resultados">No se encontraron escuelas con esos filtros.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ escuela.nombre }}{% endblock %}
+
+{% block contenido %}
+<a class="volver" href="{{ url_for('index') }}">&larr; Volver al buscador</a>
+
+<article class="ficha">
+    <h1>{{ escuela.nombre }}</h1>
+    <p class="etiqueta-gestion">{{ 'Pública' if escuela.tipo_gestion == 'publica' else 'Privada' }}</p>
+
+    <section class="ficha-seccion">
+        <h2>Ubicación</h2>
+        <p>{{ escuela.direccion }}</p>
+        <!-- Mapa embebido por dirección, sin geolocalización propia -->
+        <iframe
+            class="mapa-embebido"
+            src="https://maps.google.com/maps?q={{ escuela.direccion | urlencode }}&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Orientaciones</h2>
+        <ul>
+            {% for orientacion in orientaciones %}
+            <li>{{ orientacion }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Turnos</h2>
+        <ul>
+            {% for turno in turnos %}
+            <li>{{ turno }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Inscripción</h2>
+        <p><strong>Requisitos:</strong> {{ escuela.requisitos_inscripcion or 'No especificado' }}</p>
+        <p><strong>Documentación necesaria:</strong> {{ escuela.documentacion_necesaria or 'No especificado' }}</p>
+        {% if escuela.fecha_inicio_inscripcion and escuela.fecha_fin_inscripcion %}
+        <p><strong>Fechas:</strong> del {{ escuela.fecha_inicio_inscripcion }} al {{ escuela.fecha_fin_inscripcion }}</p>
+        {% endif %}
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Contacto</h2>
+        {% if escuela.telefono %}<p>Teléfono: {{ escuela.telefono }}</p>{% endif %}
+        {% if escuela.email %}<p>Email: {{ escuela.email }}</p>{% endif %}
+        {% if escuela.redes_sociales %}<p>Redes sociales: {{ escuela.redes_sociales }}</p>{% endif %}
+    </section>
+
+    {% if actividades %}
+    <section class="ficha-seccion">
+        <h2>Actividades extracurriculares</h2>
+        <ul>
+            {% for actividad in actividades %}
+            <li>{{ actividad }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if faqs %}
+    <section class="ficha-seccion">
+        <h2>Preguntas frecuentes</h2>
+        {% for faq in faqs %}
+        <div class="faq-item">
+            <p class="faq-pregunta">{{ faq.pregunta }}</p>
+            <p class="faq-respuesta">{{ faq.respuesta }}</p>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <!-- viewport es clave: la mayoría va a entrar desde el celular con el QR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}EDU QR{% endblock %} - Guía de escuelas técnicas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="cabecera">
+        <a href="{{ url_for('index') }}" class="marca">EDU QR</a>
+        <p class="lema">Un código QR, todas las escuelas, una ciudad mejor informada.</p>
+    </header>
+
+    <main class="contenido">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer class="pie">
+        <p>Proyecto EDU QR — desarrollado por estudiantes de 4.º año, Proyecto Tecnológico.</p>
+    </footer>
+</body>
+</html>

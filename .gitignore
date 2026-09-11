@@ -1,0 +1,19 @@
+# Entorno virtual de Python
+venv/
+env/
+.venv/
+
+# Variables de entorno con contraseñas locales
+.env
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Códigos QR generados (se regeneran, no hace falta versionarlos)
+static/qr/*.png
+
+# Archivos del sistema operativo / editor
+.DS_Store
+.vscode/
+.idea/

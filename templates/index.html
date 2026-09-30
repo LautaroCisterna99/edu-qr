@@ -3,46 +3,26 @@
 {% block titulo %}Inicio{% endblock %}
 
 {% block contenido %}
-<form class="formulario-busqueda" method="get" action="{{ url_for('index') }}">
-    <input
-        type="text"
-        name="q"
-        placeholder="Buscar por nombre de escuela..."
-        value="{{ texto_busqueda }}"
-    >
+{#
+    Equipo 3 — acá arman la página principal.
 
-    <select name="orientacion">
-        <option value="">Todas las orientaciones</option>
-        {% for orientacion in orientaciones %}
-        <option value="{{ orientacion }}" {% if orientacion == orientacion_filtro %}selected{% endif %}>
-            {{ orientacion }}
-        </option>
-        {% endfor %}
-    </select>
+    Variables que les llegan desde app.py (Equipo 5):
+      - escuelas: lista de escuelas a mostrar. Cada escuela trae, como
+        mínimo: id, nombre, tipo_gestion, direccion.
+      - orientaciones: lista de nombres de orientación, para el <select> de
+        filtro.
+      - turnos: lista de nombres de turno, para el otro <select> de filtro.
+      - texto_busqueda, orientacion_filtro, turno_filtro: lo que el usuario
+        escribió/eligió la última vez, para que el formulario no se borre
+        solo al volver a buscar.
 
-    <select name="turno">
-        <option value="">Todos los turnos</option>
-        {% for turno in turnos %}
-        <option value="{{ turno }}" {% if turno == turno_filtro %}selected{% endif %}>
-            {{ turno }}
-        </option>
-        {% endfor %}
-    </select>
+    Lo que tienen que armar:
+      1. Un formulario (method="get") con un input de texto para buscar por
+         nombre, y dos <select> para filtrar por orientación y turno.
+      2. Un listado de "escuelas", mostrando nombre, tipo de gestión y
+         dirección de cada una, con un link a su ficha individual (la ruta
+         es /escuela/<id>; pueden armarla con url_for).
+      3. Un mensaje si "escuelas" viene vacío (sin resultados).
+#}
 
-    <button type="submit">Buscar</button>
-</form>
-
-<section class="lista-escuelas">
-    {% if escuelas %}
-        {% for escuela in escuelas %}
-        <a class="tarjeta-escuela" href="{{ url_for('ficha_escuela', escuela_id=escuela.id) }}">
-            <h2>{{ escuela.nombre }}</h2>
-            <p class="etiqueta-gestion">{{ 'Pública' if escuela.tipo_gestion == 'publica' else 'Privada' }}</p>
-            <p>{{ escuela.direccion }}</p>
-        </a>
-        {% endfor %}
-    {% else %}
-        <p class="sin-resultados">No se encontraron escuelas con esos filtros.</p>
-    {% endif %}
-</section>
 {% endblock %}

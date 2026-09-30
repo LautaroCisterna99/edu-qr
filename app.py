@@ -3,8 +3,8 @@ EDU QR — esqueleto Flask + MySQL (Etapa 1)
 
 Punto de partida para que los equipos 3 (HTML), 4 (CSS), 5 (Python/Flask) y 6
 (integración/pruebas) tengan algo funcionando desde el primer día, en lugar de
-partir de cero. Ya incluye conexión a MySQL, un buscador con filtros y la
-ficha individual de cada escuela.
+partir de cero. Trae la conexión a MySQL ya resuelta — lo que falta armar es
+la lógica de cada vista (Equipo 5) y lo que se ve en pantalla (Equipos 3 y 4).
 
 Cómo se organiza el código (para que cada equipo sepa dónde tocar):
   - Equipo 3 (HTML):        templates/*.html — estructura de las páginas
@@ -41,115 +41,30 @@ def get_conexion():
 
 @app.route("/")
 def index():
-    """Página principal: lista de escuelas con buscador y filtros."""
-    texto_busqueda = request.args.get("q", "").strip()
-    orientacion_filtro = request.args.get("orientacion", "").strip()
-    turno_filtro = request.args.get("turno", "").strip()
+    """Página principal: lista de escuelas con buscador y filtros.
 
-    conexion = get_conexion()
-    cursor = conexion.cursor(dictionary=True)
-
-    consulta = """
-        SELECT DISTINCT e.id, e.nombre, e.tipo_gestion, e.direccion
-        FROM escuelas e
-        LEFT JOIN escuela_orientacion eo ON eo.escuela_id = e.id
-        LEFT JOIN orientaciones o ON o.id = eo.orientacion_id
-        LEFT JOIN escuela_turno et ON et.escuela_id = e.id
-        LEFT JOIN turnos t ON t.id = et.turno_id
-        WHERE 1 = 1
+    TODO (Equipo 5):
+    - Leer los parámetros de búsqueda con request.args.get(...): "q" (texto),
+      "orientacion" y "turno".
+    - Conectarse a la base con get_conexion() y armar la consulta SQL,
+      aplicando esos filtros solo si vienen completados.
+    - Renderizar templates/index.html pasándole (nombres que el template
+      ya espera): escuelas, orientaciones, turnos, texto_busqueda,
+      orientacion_filtro, turno_filtro.
     """
-    parametros = []
-
-    if texto_busqueda:
-        consulta += " AND e.nombre LIKE %s"
-        parametros.append(f"%{texto_busqueda}%")
-
-    if orientacion_filtro:
-        consulta += " AND o.nombre = %s"
-        parametros.append(orientacion_filtro)
-
-    if turno_filtro:
-        consulta += " AND t.nombre = %s"
-        parametros.append(turno_filtro)
-
-    consulta += " ORDER BY e.nombre"
-
-    cursor.execute(consulta, parametros)
-    escuelas = cursor.fetchall()
-
-    # listas para llenar los <select> de filtros
-    cursor.execute("SELECT nombre FROM orientaciones ORDER BY nombre")
-    orientaciones = [fila["nombre"] for fila in cursor.fetchall()]
-
-    cursor.execute("SELECT nombre FROM turnos ORDER BY nombre")
-    turnos = [fila["nombre"] for fila in cursor.fetchall()]
-
-    cursor.close()
-    conexion.close()
-
-    return render_template(
-        "index.html",
-        escuelas=escuelas,
-        orientaciones=orientaciones,
-        turnos=turnos,
-        texto_busqueda=texto_busqueda,
-        orientacion_filtro=orientacion_filtro,
-        turno_filtro=turno_filtro,
-    )
+    pass  # sacar este pass cuando agreguen el código de arriba
 
 
 @app.route("/escuela/<int:escuela_id>")
 def ficha_escuela(escuela_id):
-    """Ficha individual de una escuela con toda su información."""
-    conexion = get_conexion()
-    cursor = conexion.cursor(dictionary=True)
+    """Ficha individual de una escuela con toda su información.
 
-    cursor.execute("SELECT * FROM escuelas WHERE id = %s", (escuela_id,))
-    escuela = cursor.fetchone()
-
-    cursor.execute(
-        """
-        SELECT o.nombre FROM orientaciones o
-        JOIN escuela_orientacion eo ON eo.orientacion_id = o.id
-        WHERE eo.escuela_id = %s
-        """,
-        (escuela_id,),
-    )
-    orientaciones = [fila["nombre"] for fila in cursor.fetchall()]
-
-    cursor.execute(
-        """
-        SELECT t.nombre FROM turnos t
-        JOIN escuela_turno et ON et.turno_id = t.id
-        WHERE et.escuela_id = %s
-        """,
-        (escuela_id,),
-    )
-    turnos = [fila["nombre"] for fila in cursor.fetchall()]
-
-    cursor.execute(
-        "SELECT pregunta, respuesta FROM preguntas_frecuentes WHERE escuela_id = %s",
-        (escuela_id,),
-    )
-    faqs = cursor.fetchall()
-
-    cursor.execute(
-        "SELECT descripcion FROM actividades_extracurriculares WHERE escuela_id = %s",
-        (escuela_id,),
-    )
-    actividades = [fila["descripcion"] for fila in cursor.fetchall()]
-
-    cursor.close()
-    conexion.close()
-
-    return render_template(
-        "ficha_escuela.html",
-        escuela=escuela,
-        orientaciones=orientaciones,
-        turnos=turnos,
-        faqs=faqs,
-        actividades=actividades,
-    )
+    TODO (Equipo 5):
+    - Traer de la base la escuela con ese id (y sus orientaciones, turnos,
+      actividades y preguntas frecuentes si corresponde).
+    - Renderizar templates/ficha_escuela.html con esos datos.
+    """
+    pass  # sacar este pass cuando agreguen el código de arriba
 
 
 if __name__ == "__main__":

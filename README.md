@@ -4,11 +4,24 @@ Guía digital de escuelas secundarias técnicas de Caleta Olivia, desarrollada p
 
 ## Qué hace ya (v0.3 de la metodología incremental)
 
-- Buscador de escuelas por nombre.
-- Filtro por orientación y por turno.
-- Ficha individual de cada escuela con mapa embebido, contacto, inscripción y (si existen) actividades y preguntas frecuentes.
-- Base de datos MySQL relacional con datos de prueba, para no depender de que el relevamiento ya haya terminado.
-- Generador de código QR apuntando a la plataforma.
+## Qué trae este esqueleto (y qué falta construir)
+
+Este repositorio resuelve la "plomería" del proyecto para que cada equipo no tenga que armar la estructura desde cero, pero la funcionalidad real — el buscador, los filtros, la ficha de cada escuela, el diseño visual y el modelo de datos — la construye cada equipo. Todavía no hay nada funcionando de punta a punta: eso es intencional, es el trabajo de cada equipo.
+
+**Lo que ya está armado:**
+- La conexión a MySQL resuelta en `get_conexion()` (`app.py`) — no hace falta escribir el código de conexión, solo usarlo.
+- Las rutas de Flask ya declaradas (`/` y `/escuela/<id>`), con comentarios `TODO` que indican qué tiene que hacer cada una y qué variables esperan los templates.
+- Los templates (`index.html`, `ficha_escuela.html`) con la herencia de `base.html` ya armada, y comentarios que documentan qué datos van a recibir desde Flask.
+- La hoja de estilos con la lista de clases que van a necesitar estilar, pensada mobile-first, pero sin ningún valor de diseño puesto.
+- El generador de código QR (`qr/generar_qr.py`), listo para usar una vez que el sitio esté corriendo.
+
+**Lo que cada equipo tiene que construir:**
+- Equipo 2: el modelo de base de datos completo (`db/schema.sql`) y los datos de prueba (`db/seed_data.sql`).
+- Equipo 5: la lógica de las dos vistas en `app.py` (donde dice `TODO`).
+- Equipo 3: el HTML de `templates/index.html` y `templates/ficha_escuela.html`.
+- Equipo 4: el diseño en `static/css/style.css`.
+
+Recién cuando estén estas piezas va a andar el sitio de punta a punta.
 
 ## Qué carpeta le corresponde a cada equipo
 

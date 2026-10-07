@@ -66,6 +66,55 @@ def ficha_escuela(escuela_id):
     """
     pass  # sacar este pass cuando agreguen el código de arriba
 
+@app.route("/diagnostico")
+def diagnostico():
+    """
+    Ruta de diagnóstico para el día de la instalación — NO es parte del
+    proyecto que tienen que construir. Sirve para probar que Python, Flask
+    y MySQL están bien instalados, incluso antes de que el Equipo 2 cree
+    la base de datos. Se puede borrar más adelante o dejarla como ayuda
+    para quien clone el repo después.
+    """
+    resultados = [("Flask", True, "La app está corriendo correctamente.")]
+
+    try:
+        conexion_servidor = mysql.connector.connect(
+            host=os.getenv("DB_HOST", "localhost"),
+            user=os.getenv("DB_USER", "root"),
+            password=os.getenv("DB_PASSWORD", ""),
+        )
+        resultados.append(("Conexión a MySQL", True, "El servidor de MySQL responde."))
+
+        cursor = conexion_servidor.cursor()
+        cursor.execute("SHOW DATABASES LIKE %s", (os.getenv("DB_NAME", "edu_qr"),))
+        existe = cursor.fetchone() is not None
+        cursor.close()
+        conexion_servidor.close()
+
+        if existe:
+            resultados.append(("Base de datos 'edu_qr'", True, "Ya fue creada."))
+        else:
+            resultados.append(("Base de datos 'edu_qr'", False,
+                                "Todavía no existe (la crea el Equipo 2 con db/schema.sql)."))
+    except mysql.connector.Error as e:
+        resultados.append(("Conexión a MySQL", False, f"Error: {e}"))
+
+    filas = "".join(
+        f"<li style='color:{'#2f9e44' if ok else '#c0392b'}'>"
+        f"[{'OK' if ok else 'ERROR'}] <strong>{nombre}:</strong> {detalle}</li>"
+        for nombre, ok, detalle in resultados
+    )
+    return f"""
+    <html>
+      <head><title>EDU QR - Diagnostico</title></head>
+      <body style="font-family: sans-serif; max-width: 600px; margin: 2rem auto;">
+        <h1>Diagnostico de instalacion</h1>
+        <ul style="list-style:none; padding:0; line-height:1.8;">{filas}</ul>
+        <p>Si todo dice OK, tu entorno esta listo. Si algo dice ERROR,
+        revisa la seccion "Solucion de problemas comunes" del README.</p>
+      </body>
+    </html>
+    """
 
 if __name__ == "__main__":
     # debug=True solo para desarrollo en clase; sacarlo antes de la Expo.

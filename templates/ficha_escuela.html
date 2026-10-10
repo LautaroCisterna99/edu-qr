@@ -3,30 +3,39 @@
 {% block titulo %}Ficha de la escuela{% endblock %}
 
 {% block contenido %}
-{#
-    Equipo 3 — acá arman la ficha individual de una escuela.
 
-    Variables que les llegan desde app.py (Equipo 5):
-      - escuela: datos de la escuela (nombre, tipo_gestion, direccion,
-        telefono, email, requisitos_inscripcion, documentacion_necesaria,
-        fecha_inicio_inscripcion, fecha_fin_inscripcion, redes_sociales,
-        entre otros).
-      - orientaciones: lista de nombres de orientación de esa escuela.
-      - turnos: lista de nombres de turno de esa escuela.
-      - faqs: lista de preguntas frecuentes (cada una con "pregunta" y
-        "respuesta"), puede venir vacía.
-      - actividades: lista de actividades extracurriculares (texto), puede
-        venir vacía.
+<section class="ficha">
+    <a href="{{ url_for('index') }}" class="volver">← Volver al buscador</a>
 
-    Lo que tienen que armar:
-      1. Un link para volver al buscador.
-      2. Nombre, tipo de gestión y dirección.
-      3. Un mapa embebido de Google Maps a partir de la dirección (repasen
-         el filtro | urlencode de Jinja2).
-      4. Orientaciones y turnos.
-      5. Datos de inscripción y contacto.
-      6. Actividades y preguntas frecuentes — pero solo si vienen datos
-         (usen {% if %} para no mostrar una sección vacía).
-#}
+    <h1>Escuela Técnica de ejemplo</h1>
+
+    <section class="ficha-seccion">
+        <h2>Información general</h2>
+        <p><strong>Tipo de gestión:</strong> Pública</p>
+        <p><strong>Dirección:</strong> Dirección de ejemplo</p>
+        <p><strong>Teléfono:</strong> A completar</p>
+        <p><strong>Correo electrónico:</strong> A completar</p>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Orientaciones</h2>
+        <p>Información sobre las especialidades de la escuela.</p>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Turnos</h2>
+        <p>Información sobre los turnos disponibles.</p>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Inscripción y documentación</h2>
+        <p>Información sobre los requisitos y las fechas de inscripción.</p>
+    </section>
+
+    <section class="ficha-seccion">
+        <h2>Actividades y preguntas frecuentes</h2>
+        <p>Información pendiente de completar.</p>
+    </section>
+</section>
 
 {% endblock %}

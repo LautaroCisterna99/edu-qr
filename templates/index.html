@@ -3,26 +3,19 @@
 {% block titulo %}Inicio{% endblock %}
 
 {% block contenido %}
-{#
-    Equipo 3 — acá arman la página principal.
 
-    Variables que les llegan desde app.py (Equipo 5):
-      - escuelas: lista de escuelas a mostrar. Cada escuela trae, como
-        mínimo: id, nombre, tipo_gestion, direccion.
-      - orientaciones: lista de nombres de orientación, para el <select> de
-        filtro.
-      - turnos: lista de nombres de turno, para el otro <select> de filtro.
-      - texto_busqueda, orientacion_filtro, turno_filtro: lo que el usuario
-        escribió/eligió la última vez, para que el formulario no se borre
-        solo al volver a buscar.
+<section class="presentacion">
+    <h1>Escuelas técnicas de la ciudad</h1>
+    <p>Conocé las instituciones, sus especialidades y sus propuestas educativas.</p>
+</section>
 
-    Lo que tienen que armar:
-      1. Un formulario (method="get") con un input de texto para buscar por
-         nombre, y dos <select> para filtrar por orientación y turno.
-      2. Un listado de "escuelas", mostrando nombre, tipo de gestión y
-         dirección de cada una, con un link a su ficha individual (la ruta
-         es /escuela/<id>; pueden armarla con url_for).
-      3. Un mensaje si "escuelas" viene vacío (sin resultados).
-#}
+<section class="lista-escuelas">
+    <article class="tarjeta-escuela">
+        <h2>Escuela Técnica de ejemplo</h2>
+        <p><strong>Tipo de gestión:</strong> Pública</p>
+        <p><strong>Dirección:</strong> Dirección de ejemplo</p>
+        <p>Esta tarjeta es una muestra de cómo se visualizará la información de una escuela.</p>
+    </article>
+</section>
 
 {% endblock %}
